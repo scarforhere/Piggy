@@ -28,8 +28,8 @@ def calculate(x, a=150.0, b=150.0 / 2200.0, c=2200.0):
         z = x * y
         return z
 
-    except:
-        return False
+    except Exception as exception_info:
+        return exception_info
 
 
 def judge(x, a=150.0, b=150.0 / 2200.0, c=2200.0):

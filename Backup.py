@@ -15,14 +15,17 @@ def copy_file(file1, file2):
             while len(content) > 0:
                 f2.write(content)
                 content = f1.readline()
-
+    print(f'\tBackup Succeeded:'
+          f'\n\t\tfrom: {file1}'
+          f'\n\t\tto    {file2}')
 
 
 def copy_dir(dir1, dir2):
     """
     Back up folders and files
-    :param dir1:
-    :param dir2:
+
+    :param dir1: Target folder's or file's path
+    :param dir2: Origin folder's or file's path
     """
     dir_list = os.listdir(dir1)
     os.mkdir(dir2)
@@ -34,16 +37,55 @@ def copy_dir(dir1, dir2):
 
         if os.path.isfile(file1):
             copy_file(file1, file2)
+            print(f'\tBackup Succeeded:'
+                  f'\n\t\tfrom: {file1}'
+                  f'\n\t\tto    {file2}')
 
         if os.path.isdir(file1):
             copy_dir(file1, file2)
 
 
+def backup(origin, target=None, suffix='down'):
+    print('Start to Backup:')
+    if os.path.isfile(origin):
+        if not target:
+            lst = origin.rsplit(sep='.', maxsplit=1)
+            target_list = [lst[0], "_", suffix, ".", lst[1]]
+            target = ''.join(target_list)
+
+        copy_file(origin, target)
+        return target
+
+    else:
+        if not target:
+            target_list = [origin, "_", suffix]
+            target = ''.join(target_list)
+
+        copy_dir(origin, target)
+        return target
+
+
 # Test
 def main():
+    import Delete
+
     src = r'E:\Python_Code\Piggy\DataSource'
     target = r'E:\Python_Code\Piggy\AB'
-    copy_dir(src, target)  # 当前文件夹中的aa文件夹复制到bb文件夹 没有会自动创建
+    new_dir = backup(origin=src)
+    print(new_dir)
+    print()
+    new_dir = backup(origin=src, suffix='new')
+    print(new_dir)
+    print()
+    backup(origin=src, target=target)
+    print(new_dir)
+    print()
+    new_dir = backup(origin=r'E:\Python_Code\Piggy\DataSource\\node.xlsx')
+    print(new_dir)
+    print()
+
+    input("Press Enter To Delete")
+    Delete.execute(path=os.getcwd())
 
 
 if __name__ == '__main__':

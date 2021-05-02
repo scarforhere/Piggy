@@ -20,32 +20,32 @@ def merge(file_position='node', file_bool='pl', file_merge='merge'):
             file_merge += '.xlsx'
 
         # create empty list Merge[x][y]=bool
-        merge = []
+        point_data = []
 
         # add x,y to Merge[]
         with open(file_position, 'r') as file_p:
             data = file_p.readlines()
             for Data_Point in data:
                 merge_line = Data_Point.split()
-                merge.append(merge_line)
+                point_data.append(merge_line)
 
         # add bool to Merge[]
         with open(file_bool, 'r') as file_b:
             i = 0
             data = file_b.readlines()
             for result in data:
-                merge[i].append(result.split()[0])
+                point_data[i].append(result.split()[0])
                 i += 1
 
         # get element number of Merge[]
-        point_num = len(merge)
+        point_num = len(point_data)
 
         # crate dict{} for DataFrame
         excel_dict = {'x': [], 'y': [], 'bool': []}
         for i in range(0, point_num):
-            excel_dict['x'].append(merge[i][0])
-            excel_dict['y'].append(merge[i][1])
-            excel_dict['bool'].append(merge[i][2])
+            excel_dict['x'].append(point_data[i][0])
+            excel_dict['y'].append(point_data[i][1])
+            excel_dict['bool'].append(point_data[i][2])
 
         # create Dataframe
         df = pd.DataFrame(excel_dict)
