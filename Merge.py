@@ -62,9 +62,9 @@ def merge(file_position='node', file_bool='pl', file_merge='merge'):
 
 # Test
 def main():
-    file_position = 'node'
-    file_bool = 'pl'
-    file_merge = 'merge'
+    file_position = r'E:\Python_Code\Piggy\DataSource\node'
+    file_bool = r'E:\Python_Code\Piggy\DataSource\pl'
+    file_merge = r'E:\Python_Code\Piggy\DataSource\merge'
     merge(file_position, file_bool, file_merge)
 
 
