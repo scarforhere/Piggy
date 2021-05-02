@@ -100,5 +100,19 @@ def format_coord(x, y):
 
 
 # Test
+def main():
+    import os
+    dir_path = r'E:\Python_Code\Piggy\DataSource\\'
+    os.chdir(dir_path)
+    file_name = 'Merge'
+    file = ''.join([dir_path, file_name])
+    plot(file=file,
+         sheet='Sheet1',
+         num_x=51,
+         num_y=101,
+         interpolation_str='None',
+         cmap_str='Reds')
+
+
 if __name__ == '__main__':
-    plot(file='Merge', sheet='Sheet1', num_x=51, num_y=101, interpolation_str='None', cmap_str='Reds')
+    main()
