@@ -21,10 +21,10 @@ import json
 
 # TODO Set Execute Mode!!!
 """
-mode = False        -->     record
-mode = True         -->     delete
+mode = 1    -->     record
+mode = 0    -->     delete
 """
-mode = True
+mode = 0
 
 
 def record_data():
@@ -148,10 +148,12 @@ def execute():
     mode = False        -->     record\n
     mode = True         -->     delete
     """
-    if mode:
-        delete_data()
-    elif not mode:
+    if mode == 1:
         record_data()
+
+    elif mode == 0:
+        delete_data()
+
     else:
         print("")
 
