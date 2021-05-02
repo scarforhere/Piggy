@@ -9,7 +9,7 @@ import math
 plt.figure(figsize=(6, 8))
 
 
-def Plot(file='Merge', sheet='Sheet1', num_x=51, num_y=101, pitch=100, interpolation_str='None', cmap_str='Reds'):
+def plot(file='Merge', sheet='Sheet1', num_x=51, num_y=101, pitch=100, interpolation_str='None', cmap_str='Reds'):
     """
     Create Image from .xlsx \n
     Need: Column_x, Column_x, Column_bool \n
@@ -21,9 +21,9 @@ def Plot(file='Merge', sheet='Sheet1', num_x=51, num_y=101, pitch=100, interpola
     :param num_y: number of point in y direktion
     :param pitch: pitch between start and end point
     :param interpolation_str: interpolation reference
-                                --> See:https://matplotlib.org/stable/gallery/images_contours_and_fields/interpolation_methods
+                --> See:https://matplotlib.org/stable/gallery/images_contours_and_fields/interpolation_methods
     :param cmap_str: colormap reference
-                                --> See:https://matplotlib.org/stable/gallery/color/colormap_reference
+                --> See:https://matplotlib.org/stable/gallery/color/colormap_reference
     """
     try:
         if file.find('.xlsx') == -1:
@@ -35,29 +35,29 @@ def Plot(file='Merge', sheet='Sheet1', num_x=51, num_y=101, pitch=100, interpola
         n_rou = df.shape[0]
 
         # create empty list Data[][]
-        Data = [[i for i in range(0, num_y)] for _ in range(0, num_x)]
+        data = [[i for i in range(0, num_y)] for _ in range(0, num_x)]
 
         # set Data[x][y]=bool
         for i in range(0, n_rou):
             x = int((df.iloc[i, 0] + 2500) / pitch - 1)
             y = int((df.iloc[i, 1] + 5100) / pitch - 1)
-            Data[x][y] = df.iloc[i, 2]
+            data[x][y] = df.iloc[i, 2]
 
         # create List of value of bool
-        List_Plot = []
+        list_plot = []
         for y in range(0, num_y):
             for x in range(0, num_x):
-                List_Plot.append(Data[x][y])
+                list_plot.append(data[x][y])
 
         # create Plot data
-        Data_Plot = np.array(List_Plot).reshape(num_y, num_x)
+        data_plot = np.array(list_plot).reshape(num_y, num_x)
 
         # hide axis
         # plt.xticks(())
         # plt.yticks(())
 
         # set property of Plot
-        plt.imshow(Data_Plot, interpolation=interpolation_str, cmap=cmap_str, origin='lower')
+        plt.imshow(data_plot, interpolation=interpolation_str, cmap=cmap_str, origin='lower')
         # interpolation     --> 'None'  'bilinear'  'sinc'
         # cmap              --> 'Reds'  'bwr'  'seismic'
 
@@ -71,10 +71,10 @@ def Plot(file='Merge', sheet='Sheet1', num_x=51, num_y=101, pitch=100, interpola
         # set axis info
         i_x = 5 * 2
         i_y = 5 * 1
-        Range_t_x = [int(-(pitch * (num_x - 1) / 2)), int((pitch * (num_x - 1) / 2 + i_x * pitch)), int(i_x * pitch)]
-        Range_t_y = [int(-(pitch * (num_y - 1) / 2)), int((pitch * (num_y - 1) / 2 + i_y * pitch)), int(i_y * pitch)]
-        new_ticks_x = [x for x in range(Range_t_x[0], Range_t_x[1], Range_t_x[2])]
-        new_ticks_y = [y for y in range(Range_t_y[0], Range_t_y[1], Range_t_y[2])]
+        range_t_x = [int(-(pitch * (num_x - 1) / 2)), int((pitch * (num_x - 1) / 2 + i_x * pitch)), int(i_x * pitch)]
+        range_t_y = [int(-(pitch * (num_y - 1) / 2)), int((pitch * (num_y - 1) / 2 + i_y * pitch)), int(i_y * pitch)]
+        new_ticks_x = [x for x in range(range_t_x[0], range_t_x[1], range_t_x[2])]
+        new_ticks_y = [y for y in range(range_t_y[0], range_t_y[1], range_t_y[2])]
         plt.xticks([x for x in range(0, num_x, i_x)], new_ticks_x)
         plt.yticks([y for y in range(0, num_y, i_y)], new_ticks_y)
 
@@ -101,4 +101,4 @@ def format_coord(x, y):
 
 # Test
 if __name__ == '__main__':
-    Plot(file='Merge', sheet='Sheet1', num_x=51, num_y=101, interpolation_str='None', cmap_str='Reds')
+    plot(file='Merge', sheet='Sheet1', num_x=51, num_y=101, interpolation_str='None', cmap_str='Reds')

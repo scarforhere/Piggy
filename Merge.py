@@ -3,7 +3,7 @@
 import pandas as pd
 
 
-def Merge(file_position='node', file_bool='pl', file_merge='merge'):
+def merge(file_position='node', file_bool='pl', file_merge='merge'):
     """
     Merge two .txt files to .xlsx file
 
@@ -20,32 +20,32 @@ def Merge(file_position='node', file_bool='pl', file_merge='merge'):
             file_merge += '.xlsx'
 
         # create empty list Merge[x][y]=bool
-        Merge = []
+        merge = []
 
         # add x,y to Merge[]
         with open(file_position, 'r') as file_p:
-            Data = file_p.readlines()
-            for Data_Point in Data:
-                Merge_line = Data_Point.split()
-                Merge.append(Merge_line)
+            data = file_p.readlines()
+            for Data_Point in data:
+                merge_line = Data_Point.split()
+                merge.append(merge_line)
 
         # add bool to Merge[]
         with open(file_bool, 'r') as file_b:
             i = 0
-            Data = file_b.readlines()
-            for result in Data:
-                Merge[i].append(result.split()[0])
+            data = file_b.readlines()
+            for result in data:
+                merge[i].append(result.split()[0])
                 i += 1
 
         # get element number of Merge[]
-        Point_num = len(Merge)
+        point_num = len(merge)
 
         # crate dict{} for DataFrame
         excel_dict = {'x': [], 'y': [], 'bool': []}
-        for i in range(0, Point_num):
-            excel_dict['x'].append(Merge[i][0])
-            excel_dict['y'].append(Merge[i][1])
-            excel_dict['bool'].append(Merge[i][2])
+        for i in range(0, point_num):
+            excel_dict['x'].append(merge[i][0])
+            excel_dict['y'].append(merge[i][1])
+            excel_dict['bool'].append(merge[i][2])
 
         # create Dataframe
         df = pd.DataFrame(excel_dict)
@@ -61,8 +61,12 @@ def Merge(file_position='node', file_bool='pl', file_merge='merge'):
 
 
 # Test
-if __name__ == '__main__':
+def main():
     file_position = 'node'
     file_bool = 'pl'
     file_merge = 'merge'
-    Merge(file_position, file_bool, file_merge)
+    merge(file_position, file_bool, file_merge)
+
+
+if __name__ == '__main__':
+    main()

@@ -1,7 +1,7 @@
 # Programmed by Scar
 
 
-def Backup(file, suffix="down"):
+def backup(file, suffix="down"):
     """
     Copy origin file(file.xlsx) as new file(file_suffix.xlsx)\n
     And return new filename
@@ -25,7 +25,11 @@ def Backup(file, suffix="down"):
 
 
 # Test
-if __name__ == '__main__':
+def main():
     file = 'node.xlsx'
-    print(Backup(file))
-    print(Backup(file, "down"))
+    print(backup(file))
+    print(backup(file, "down"))
+
+
+if __name__ == '__main__':
+    main()

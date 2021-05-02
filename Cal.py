@@ -14,7 +14,7 @@ e = math.exp(1)
 pi = math.pi
 
 
-def Calculate(x, a=150.0, b=150.0 / 2200.0, c=2200.0):
+def calculate(x, a=150.0, b=150.0 / 2200.0, c=2200.0):
     try:
         d = 2 * b
         f = ln(a) - ln(c * e * b)
@@ -32,14 +32,14 @@ def Calculate(x, a=150.0, b=150.0 / 2200.0, c=2200.0):
         return False
 
 
-def Judge(x, a=150.0, b=150.0 / 2200.0, c=2200.0):
+def judge(x, a=150.0, b=150.0 / 2200.0, c=2200.0):
     d = 2 * b
     f = ln(a) - ln(c * e * b)
     x_0 = -(d / (2 * f))
     y_0 = c * x_0 * math.pow(e, d / (2 * x) + f)
     z_0 = x_0 * y_0
 
-    z = Calculate(x, a, b, c)
+    z = calculate(x, a, b, c)
     if z <= z_0:
         return 0
     else:
@@ -153,71 +153,82 @@ def ln(x):
 
 
 # Test
-if __name__ == '__main__':
-    Result = Calculate(10, a=150, b=150 / 2200, c=2200)
-    print(Result)
-    Result = Calculate(10)
-    print(Result)
-    Result = Calculate(0.03, 0.4323, 0.1212, 0.23432)
-    print(Result)
+def main():
+    result = calculate(10, a=150, b=150 / 2200, c=2200)
+    print(result)
+    result = calculate(10)
+    print(result)
+    result = calculate(0.03, 0.4323, 0.1212, 0.23432)
+    print(result)
 
     print('---------------------------------------')
-    Result = Judge(10, a=150, b=150 / 2200, c=2200)
-    print(Result)
-    Result = Judge(10)
-    print(Result)
-    Result = Judge(0.03, 0.4323, 0.1212, 0.23432)
-    print(Result)
+    result = judge(10, a=150, b=150 / 2200, c=2200)
+    print(result)
+    result = judge(10)
+    print(result)
+    result = judge(0.03, 0.4323, 0.1212, 0.23432)
+    print(result)
     print()
 
     print('---------------------------------------')
     print("2 Dimensions Point")
     print('---------------------------------------')
-    Point = PointData(10)
-    Point = PointData(10, 150, 150 / 2200, 2200)
-    Point = PointData(10, a=150, b=150 / 2200, c=2200)
-    print(f"Point.x:\t{Point.x:16.8f}")
-    print(f"Point.a: \t{Point.a:16.8f}")
-    print(f"Point.b: \t{Point.b:16.8f}")
-    print(f"Point.c: \t{Point.c:16.8f}")
-    print(f"Point.d: \t{Point.d:16.8f}")
-    print(f"Point.f: \t{Point.f:16.8f}")
-    print(f"Point.x_0: \t{Point.x_0:16.8f}")
-    print(f"Point.y: \t{Point.y:16.8f}")
-    print(f"Point.y_0: \t{Point.y_0:16.8f}")
-    print(f"Point.z_0: \t{Point.z_0:16.8f}")
-    print(f"Point.judge: \t{Point.judge}")
+    # Point = PointData(10)
+    # Point = PointData(10, 150, 150 / 2200, 2200)
+    point = PointData(10, a=150, b=150 / 2200, c=2200)
+    print(f"Point.x:\t{point.x:16.8f}")
+    print(f"Point.a: \t{point.a:16.8f}")
+    print(f"Point.b: \t{point.b:16.8f}")
+    print(f"Point.c: \t{point.c:16.8f}")
+    print(f"Point.d: \t{point.d:16.8f}")
+    print(f"Point.f: \t{point.f:16.8f}")
+    print(f"Point.x_0: \t{point.x_0:16.8f}")
+    print(f"Point.y: \t{point.y:16.8f}")
+    print(f"Point.y_0: \t{point.y_0:16.8f}")
+    print(f"Point.z_0: \t{point.z_0:16.8f}")
+    print(f"Point.judge: \t{point.judge}")
     print()
 
     print('---------------------------------------')
     print("3 Dimensions Point in Cylinder")
     print('---------------------------------------')
-    Point = PointDataCylinder(0.005, 0.00001, 15)
-    Point = PointDataCylinder(0.005, 0.00001, 15, x_s=0.007, k_1=5, u_s=123, a=0.035, b=16, c=50 / 180 * math.pi, d=0.25,
+    # Point = PointDataCylinder(0.005, 0.00001, 15)
+    point = PointDataCylinder(0.005, 0.00001, 15,
+                              x_s=0.007,
+                              k_1=5,
+                              u_s=123,
+                              a=0.035,
+                              b=16,
+                              c=50 / 180 * math.pi,
+                              d=0.25,
                               E=22000)
-    print(f"Point.x_1:\t{Point.x_1:16.8f}")
-    print(f"Point.x_3:\t{Point.x_3:16.8f}")
-    print(f"Point.u_3:\t{Point.u_3:16.8f}")
-    print(f"Point.x_s:\t{Point.x_s:16.8f}")
-    print(f"Point.k_1:\t{Point.k_1:16.8f}")
-    print(f"Point.a:\t{Point.a:16.8f}")
-    print(f"Point.b:\t{Point.b:16.8f}")
-    print(f"Point.c:\t{Point.c:16.8f}")
-    print(f"Point.d:\t{Point.d:16.8f}")
-    print(f"Point.E:\t{Point.E:16.8f}")
-    print(f"Point.K:\t{Point.K:16.8f}")
-    print(f"Point.G:\t{Point.G:16.8f}")
-    print(f"Point.m:\t{Point.m:16.8f}")
-    print(f"Point.n:\t{Point.n:16.8f}")
-    print(f"Point.x_0:\t{Point.x_0:16.8f}")
-    print(f"Point.A_1:\t{Point.A_1:16.8f}")
-    print(f"Point.A_2:\t{Point.A_2:16.8f}")
-    print(f"Point.B_1:\t{Point.B_1:16.8f}")
-    print(f"Point.B_2:\t{Point.B_2:16.8f}")
-    print(f"Point.y:\t{Point.y:16.8f}")
-    print(f"Point.z:\t{Point.z:16.8f}")
-    print(f"Point.y_1:\t{Point.y_1:16.8f}")
-    print(f"Point.y_2:\t{Point.y_2:16.8f}")
-    print(f"Point.z_1:\t{Point.z_1:16.8f}")
-    print(f"Point.z_2:\t{Point.z_2:16.8f}")
-    print(f"Point.L:\t{Point.L:16.8f}")
+    print(f"Point.x_1:\t{point.x_1:16.8f}")
+    print(f"Point.x_3:\t{point.x_3:16.8f}")
+    print(f"Point.u_3:\t{point.u_3:16.8f}")
+    print(f"Point.x_s:\t{point.x_s:16.8f}")
+    print(f"Point.k_1:\t{point.k_1:16.8f}")
+    print(f"Point.a:\t{point.a:16.8f}")
+    print(f"Point.b:\t{point.b:16.8f}")
+    print(f"Point.c:\t{point.c:16.8f}")
+    print(f"Point.d:\t{point.d:16.8f}")
+    print(f"Point.E:\t{point.E:16.8f}")
+    print(f"Point.K:\t{point.K:16.8f}")
+    print(f"Point.G:\t{point.G:16.8f}")
+    print(f"Point.m:\t{point.m:16.8f}")
+    print(f"Point.n:\t{point.n:16.8f}")
+    print(f"Point.x_0:\t{point.x_0:16.8f}")
+    print(f"Point.A_1:\t{point.A_1:16.8f}")
+    print(f"Point.A_2:\t{point.A_2:16.8f}")
+    print(f"Point.B_1:\t{point.B_1:16.8f}")
+    print(f"Point.B_2:\t{point.B_2:16.8f}")
+    print(f"Point.y:\t{point.y:16.8f}")
+    print(f"Point.z:\t{point.z:16.8f}")
+    print(f"Point.y_1:\t{point.y_1:16.8f}")
+    print(f"Point.y_2:\t{point.y_2:16.8f}")
+    print(f"Point.z_1:\t{point.z_1:16.8f}")
+    print(f"Point.z_2:\t{point.z_2:16.8f}")
+    print(f"Point.L:\t{point.L:16.8f}")
+
+
+if __name__ == '__main__':
+    main()

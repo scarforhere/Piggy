@@ -1,12 +1,15 @@
 # Programmed by Scar
-from Backup import Backup
+from Backup import backup
 from Cal import PointData
 from Cal import PointDataCylinder
 import pandas as pd
 import math
 
 
-def Calculate_z(file, colume_x, colume_y, suffix="z", sheet="Sheet1"):
+def calculate_z(file,
+                colume_x, colume_y,
+                suffix="z",
+                sheet="Sheet1"):
     """
     Import file's path , data of x,y \n
     Give back value of z after the last column \n\n
@@ -18,7 +21,7 @@ def Calculate_z(file, colume_x, colume_y, suffix="z", sheet="Sheet1"):
     :param sheet: Target sheet of target.xlsx
     """
     # copy as new file
-    file = Backup(file, suffix)
+    file = backup(file, suffix)
 
     # create DataFrame from xlsx
     df = pd.read_excel(file, header=0)
@@ -35,15 +38,18 @@ def Calculate_z(file, colume_x, colume_y, suffix="z", sheet="Sheet1"):
         x = df.iloc[i, colume_x]
         y = df.iloc[i, colume_y]
         absolut = ((x ** 2 + y ** 2) ** 0.5)
-        Point = PointData(absolut)
+        point = PointData(absolut)
         # put value back to Dataframe
-        df.iloc[i, n_column] = Point.z
+        df.iloc[i, n_column] = point.z
 
     # write DataFrame back to xlsx
     df.to_excel(file, index=False)
 
 
-def Calculate_judge(file, colume_x, colume_y, suffix="judge", sheet="Sheet1"):
+def calculate_judge(file,
+                    colume_x, colume_y,
+                    suffix="judge",
+                    sheet="Sheet1"):
     """
     Import file's path , data of x,y \n
     if z <= z_0 give judge = 0\n
@@ -57,7 +63,7 @@ def Calculate_judge(file, colume_x, colume_y, suffix="judge", sheet="Sheet1"):
     :param sheet: Target sheet of target.xlsx
     """
     # copy as new file
-    file = Backup(file, suffix)
+    file = backup(file, suffix)
 
     # create DataFrame from xlsx
     df = pd.read_excel(file, sheet_name=sheet, header=0)
@@ -74,15 +80,15 @@ def Calculate_judge(file, colume_x, colume_y, suffix="judge", sheet="Sheet1"):
         x = df.iloc[i, colume_x]
         y = df.iloc[i, colume_y]
         absolut = ((x ** 2 + y ** 2) ** 0.5)
-        Point = PointData(absolut)
+        point = PointData(absolut)
         # put value back to Dataframe
-        df.iloc[i, n_column] = Point.judge
+        df.iloc[i, n_column] = point.judge
 
     # write DataFrame back to xlsx
     df.to_excel(file, index=False)
 
 
-def Calculate_sort(file, column='', order=False, suffix="sort", sheet="Sheet1"):
+def calculate_sort(file, column='', order=False, suffix="sort", sheet="Sheet1"):
     """
     Sort the data under the order of selected column of keyword
 
@@ -93,7 +99,7 @@ def Calculate_sort(file, column='', order=False, suffix="sort", sheet="Sheet1"):
     :param sheet: Target sheet of target.xlsx
     """
     # copy as new file
-    file = Backup(file, suffix)
+    file = backup(file, suffix)
 
     # create DataFrame from xlsx
     df = pd.read_excel(file, sheet_name=sheet, header=0)
@@ -121,7 +127,11 @@ def Calculate_sort(file, column='', order=False, suffix="sort", sheet="Sheet1"):
     df_new.to_excel(file, index=False)
 
 
-def Calculate_Cylinder(file, colume_x_1, colume_x_3, colume_u_3, x_s, k_1, u_s, a, b, c, d, E, suffix="Cylinder", sheet="Sheet1"):
+def calculate_cylinder(file,
+                       colume_x_1, colume_x_3, colume_u_3,
+                       x_s, k_1, u_s, a, b, c, d, E,
+                       suffix="Cylinder",
+                       sheet="Sheet1"):
     """
     Import: file's path , colume number of x_1, x_3, u_3 \n
     Set constant: x_s, k_1, u_s, a, b, c, d, E \n
@@ -143,7 +153,7 @@ def Calculate_Cylinder(file, colume_x_1, colume_x_3, colume_u_3, x_s, k_1, u_s, 
     :param sheet: Target sheet of target.xlsx
     """
     # copy as new file
-    file = Backup(file, suffix)
+    file = backup(file, suffix)
 
     # create DataFrame from xlsx
     df = pd.read_excel(file, sheet_name=sheet, header=0)
@@ -160,16 +170,16 @@ def Calculate_Cylinder(file, colume_x_1, colume_x_3, colume_u_3, x_s, k_1, u_s, 
         x_1 = df.iloc[i, colume_x_1]
         x_3 = df.iloc[i, colume_x_3]
         u_3 = df.iloc[i, colume_u_3]
-        Point = PointDataCylinder(x_1, x_3, u_3, x_s, k_1, u_s, a, b, c, d, E)
+        point = PointDataCylinder(x_1, x_3, u_3, x_s, k_1, u_s, a, b, c, d, E)
         # put value back to Dataframe
-        df.iloc[i, n_column] = Point.z
+        df.iloc[i, n_column] = point.z
 
     # write DataFrame back to xlsx
     df.to_excel(file, index=False)
 
 
 # Test
-if __name__ == '__main__':
+def main():
     # define patch to xlsx
     # file= r'C:\Users\15152\Desktop\node.xlsx'
     file = 'node.xlsx'
@@ -178,9 +188,9 @@ if __name__ == '__main__':
     suffix = 'z'
     tar_x = 5
     tar_y = 6
-    Calculate_z(file, tar_x, tar_y, 'z', 'node')
-    Calculate_judge(file, tar_x, tar_y, 'judge', 'node')
-    Calculate_sort(file1, '', False, "sort", "Sheet1")
+    calculate_z(file, tar_x, tar_y, 'z', 'node')
+    calculate_judge(file, tar_x, tar_y, 'judge', 'node')
+    calculate_sort(file1, '', False, "sort", "Sheet1")
 
     # Point in Cylinder
     file1 = 'node.xlsx'
@@ -195,5 +205,10 @@ if __name__ == '__main__':
     c = 50 / 180 * math.pi
     d = 0.25
     E = 22000
-    Calculate_Cylinder(file1, colume_x_1, colume_x_3, colume_u_3, x_s, k_1, u_s, a, b, c, d, E, suffix="Cylinder",
+    calculate_cylinder(file1, colume_x_1, colume_x_3, colume_u_3, x_s, k_1, u_s, a, b, c, d, E,
+                       suffix="Cylinder",
                        sheet="Sheet1")
+
+
+if __name__ == '__main__':
+    main()
